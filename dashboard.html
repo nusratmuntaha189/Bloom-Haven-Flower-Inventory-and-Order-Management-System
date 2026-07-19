@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Bloom Haven{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>📊 Dashboard</h1>
+</div>
+
+<div class="card-grid">
+    <div class="card">
+        <h2>৳{{ "%.2f"|format(totals.total_revenue) }}</h2>
+        <p>Total Revenue</p>
+    </div>
+    <div class="card">
+        <h2>{{ totals.total_orders }}</h2>
+        <p>Total Orders</p>
+    </div>
+    <div class="card">
+        <h2>{{ total_customers }}</h2>
+        <p>Total Customers</p>
+    </div>
+    <div class="card">
+        <h2>{{ total_flowers }}</h2>
+        <p>Flower Varieties</p>
+    </div>
+</div>
+
+<div style="margin-top: 30px;">
+    <h2 style="margin-bottom: 12px;">🏆 Top-Selling Flower</h2>
+    {% if top_flower %}
+        <p>{{ top_flower.name }} — {{ top_flower.total_sold }} units sold</p>
+    {% else %}
+        <p>No orders yet.</p>
+    {% endif %}
+</div>
+
+<div style="margin-top: 30px;">
+    <h2 style="margin-bottom: 12px;">⚠️ Low Stock Alerts (below {{ threshold }} units)</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Flower</th>
+                <th>Category</th>
+                <th>Quantity Left</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flower in low_stock %}
+            <tr>
+                <td>{{ flower.name }}</td>
+                <td>{{ flower.category }}</td>
+                <td style="color: #e03131; font-weight: 600;">{{ flower.quantity }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="empty">All flowers are well stocked 🌷</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

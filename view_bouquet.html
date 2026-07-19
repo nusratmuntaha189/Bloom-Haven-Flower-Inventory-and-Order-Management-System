@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Bouquet #{{ bouquet.id }} - Bloom Haven{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>💐 Bouquet #{{ bouquet.id }}</h1>
+    <a href="{{ url_for('bouquets') }}" class="btn btn-cancel">Back to Bouquets</a>
+</div>
+
+<div class="form-box" style="max-width: 600px;">
+    <p><strong>Customer:</strong> {{ bouquet.customer_name }} ({{ bouquet.customer_phone }})</p>
+    <p><strong>Wrapping:</strong> {{ bouquet.wrapping_type }}</p>
+    <p><strong>Date:</strong> {{ bouquet.created_date }}</p>
+
+    <table class="data-table" style="margin-top: 16px;">
+        <thead>
+            <tr>
+                <th>Flower</th>
+                <th>Price (৳)</th>
+                <th>Qty</th>
+                <th>Subtotal (৳)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ "%.2f"|format(item.price) }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ "%.2f"|format(item.price * item.quantity) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="margin-top: 16px; font-size: 18px;"><strong>Total: ৳{{ "%.2f"|format(bouquet.total_price) }}</strong></p>
+
+    {% if bouquet.has_seed_paper %}
+    <div style="margin-top: 20px; background: #fdf0f5; padding: 20px; border-radius: 8px; text-align: center; border: 1px dashed #d6336c;">
+        <p style="font-size: 13px; color: #6b5b64;">🌱 SEED PAPER SURPRISE 🌱</p>
+        <p style="margin-top: 10px; font-style: italic; color: #d6336c; font-size: 16px;">
+            "{{ bouquet.quote_text }}"
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

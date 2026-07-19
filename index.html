@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Home - Bloom Haven{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Welcome to Bloom Haven 🌷</h1>
+    <p>Flower Inventory and Order Management System</p>
+
+    <div class="card-grid">
+        <a href="{{ url_for('flowers') }}" class="card">
+            <h2>🌹 Flowers</h2>
+            <p>Manage flower inventory</p>
+        </a>
+        <a href="{{ url_for('customers') }}" class="card">
+            <h2>👤 Customers</h2>
+            <p>Manage customer records</p>
+        </a>
+        <a href="{{ url_for('orders') }}" class="card">
+            <h2>🧾 Orders</h2>
+            <p>Manage flower orders</p>
+        </a>
+        <a href="{{ url_for('bouquets') }}" class="card">
+            <h2>💐 Bouquets</h2>
+            <p>Build a custom bouquet with seed paper</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

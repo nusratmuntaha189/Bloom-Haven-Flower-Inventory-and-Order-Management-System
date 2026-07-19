@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Orders - Bloom Haven{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Orders</h1>
+    <a href="{{ url_for('add_order') }}" class="btn btn-primary">+ Add Order</a>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Flower</th>
+            <th>Quantity</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.customer_name }}</td>
+            <td>{{ order.flower_name }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>
+                <span class="status-badge status-{{ order.status|lower }}">{{ order.status }}</span>
+            </td>
+            <td class="actions">
+                {% if order.status == 'Pending' %}
+                    <a href="{{ url_for('edit_order', id=order.id) }}" class="btn btn-edit">Edit</a>
+                    <a href="{{ url_for('mark_delivered', id=order.id) }}" class="btn btn-primary">Deliver</a>
+                    <a href="{{ url_for('cancel_order', id=order.id) }}" class="btn btn-delete"
+                       onclick="return confirm('Cancel this order? Stock will be restored.');">Cancel</a>
+                {% endif %}
+                <a href="{{ url_for('delete_order', id=order.id) }}" class="btn btn-cancel"
+                   onclick="return confirm('Permanently delete this order record?');">Delete</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="empty">No orders found. Add one!</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

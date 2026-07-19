@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Add Flower - Bloom Haven{% endblock %}
+{% block content %}
+<h1>Add New Flower</h1>
+<form method="POST" class="form-box">
+    <label for="name">Flower Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="price">Price (৳)</label>
+    <input type="number" id="price" step="0.01" min="0" name="price" required>
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" min="0" name="quantity" required>
+
+    <label for="category">Category</label>
+    <input type="text" id="category" name="category" placeholder="e.g. Fresh Flower, Premium Flower">
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Flower</button>
+        <a href="{{ url_for('flowers') }}" class="btn btn-cancel">Cancel</a>
+    </div>
+</form>
+{% endblock %}

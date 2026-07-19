@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Edit Order - Bloom Haven{% endblock %}
+{% block content %}
+<h1>Edit Order</h1>
+<form method="POST" class="form-box">
+    <label for="customer_id">Customer</label>
+    <select id="customer_id" name="customer_id" required>
+        {% for customer in customers %}
+        <option value="{{ customer.id }}" {% if customer.id == order.customer_id %}selected{% endif %}>
+            {{ customer.name }} ({{ customer.phone }})
+        </option>
+        {% endfor %}
+    </select>
+
+    <label for="flower_id">Flower</label>
+    <select id="flower_id" name="flower_id" required>
+        {% for flower in flowers %}
+        <option value="{{ flower.id }}" {% if flower.id == order.flower_id %}selected{% endif %}>
+            {{ flower.name }} - ৳{{ "%.2f"|format(flower.price) }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" min="1" name="quantity" value="{{ order.quantity }}" required>
+
+    <label for="order_date">Order Date</label>
+    <input type="date" id="order_date" name="order_date" value="{{ order.order_date }}" required>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Update Order</button>
+        <a href="{{ url_for('orders') }}" class="btn btn-cancel">Cancel</a>
+    </div>
+</form>
+{% endblock %}
